@@ -1,0 +1,73 @@
+alembic==1.5.8
+aniso8601==9.0.1
+attrs==20.3.0
+bcrypt==3.2.0
+blinker==1.4
+bson==0.5.10
+certifi==2021.5.30
+cffi==1.14.5
+click==7.1.2
+elasticsearch==7.13.1
+Flask==1.1.2
+Flask-Bcrypt==0.7.1
+flask-blacklist==0.0.1
+Flask-Cors==3.0.10
+Flask-JWT-Extended==4.2.0
+Flask-Mail==0.9.1
+Flask-Migrate==2.7.0
+flask-restx==0.3.0
+Flask-Script==2.0.6
+Flask-SQLAlchemy==2.5.1
+flask-swagger-ui==3.36.0
+Flask-UUID==0.2
+greenlet==1.0.0
+itsdangerous==1.1.0
+Jinja2==2.11.3
+jsonschema==3.2.0
+Mako==1.1.4
+MarkupSafe==1.1.1
+mysqlclient==2.0.3
+psycopg2==2.8.6
+pycparser==2.20
+PyJWT==2.1.0
+PyMySQL==1.0.2
+pyrsistent==0.17.3
+python-dateutil==2.8.1
+python-editor==1.0.4
+pytz==2021.1
+redis==3.5.3
+six==1.15.0
+SQLAlchemy==1.4.9
+urllib3==1.26.5
+Werkzeug==1.0.1
+# base ----------------------------------------
+matplotlib>=3.2.2
+numpy>=1.18.5
+opencv-python>=4.1.2
+Pillow>=8.0.0
+PyYAML>=5.3.1
+scipy>=1.4.1
+torch>=1.7.0
+torchvision>=0.8.1
+tqdm>=4.41.0
+tensorflow==2.5.0rc0
+keras==2.5.0rc0
+# logging -------------------------------------
+tensorboard>=2.4.1
+# wandb
+
+# plotting ------------------------------------
+seaborn>=0.11.0
+pandas
+
+# export --------------------------------------
+# coremltools>=4.1
+# onnx>=1.9.0
+# scikit-learn==0.19.2  # for coreml quantization
+# tensorflow==2.5.0  # for TFLite export
+
+# extras --------------------------------------
+# Cython  # for pycocotools https://github.com/cocodataset/cocoapi/issues/172
+# pycocotools>=2.0  # COCO mAP
+# albumentations>=1.0.3
+thop  # FLOPs computation
