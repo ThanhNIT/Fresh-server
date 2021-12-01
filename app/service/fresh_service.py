@@ -24,7 +24,7 @@ from werkzeug.utils import secure_filename
 
 
 # model = torch.hub.load(os.path.abspath("weights"), 'custom', path=os.path.abspath("best.pt"), source='local')  # local repo
-
+best = "/home/thanhnguyen_it_work/best.pt"
 
 def detectFromImage(img):
     # boxes = model(img).pandas().xyxy[0]
@@ -47,7 +47,7 @@ def detectFromImage(img):
     img.save(os.path.join(UPLOAD_FOLDER, filename))
 
     # return download_file(filename)
-    return detect.run(save_txt=True, save_conf=True, save_crop=True, weights='C:/Users/Thanh/Documents/Downloads/Server/Fresh-Fruit-Server/weights/best.pt',source=path)
+    return detect.run(save_txt=True, save_conf=True, save_crop=True, weights=best,source=path)
 
 
 def download_file(name):

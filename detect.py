@@ -34,10 +34,13 @@ def mapping_to_target_range( x, target_min=0, target_max=10 ):
     return  x02 * scale + target_min
 
 
-filename = "C:/Users/Thanh/Documents/Downloads/Server/Fresh-Fruit-Server/weights/apple_vgg16.h5"
-banana_h5 = "C:/Users/Thanh/Documents/Downloads/Server/Fresh-Fruit-Server/weights/banana_vgg16.h5"
+#filename = "C:/Users/Thanh/Documents/Downloads/Server/Fresh-Fruit-Server/weights/apple_vgg16.h5"
+#banana_h5 = "C:/Users/Thanh/Documents/Downloads/Server/Fresh-Fruit-Server/weights/banana_vgg16.h5"
 
-from keras.models import load_model
+filename = "/home/thanhnguyen_it_work/apple_vgg16.h5"
+banana_h5 = "/home/thanhnguyen_it_work/banana_vgg16.h5"
+
+from tensorflow.keras.models import load_model
 appleModel = load_model(filename,custom_objects={'mapping_to_target_range':mapping_to_target_range})
 bananaModel = load_model(banana_h5,custom_objects={'mapping_to_target_range':mapping_to_target_range})
 bananaModel.summary()
