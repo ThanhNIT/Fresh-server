@@ -4,7 +4,7 @@ from app.dto.base_dto import base
 from app.utils.auth_parser_util import get_auth_required_parser, get_auth_not_required_parser
 
 
-class DemoDto:
+class UserDto:
     api = Namespace('User', description="User")
     __base = api.model("base", base)
 
@@ -12,6 +12,14 @@ class DemoDto:
     login_request = api.parser()
     login_request.add_argument("email", type=str, location="json", required=True)
     login_request.add_argument("password", type=str, location="json", required=True)
+    
+    change_password_request = api.parser()
+    change_password_request.add_argument("email", type=str, location="json", required=True)
+    change_password_request.add_argument("password", type=str, location="json", required=True)
+    change_password_request.add_argument("new_password", type=str, location="json", required=True)
+
+    reset_password_request = api.parser()
+    reset_password_request.add_argument("email", type=str, location="json", required=True)
 
     create_user_request = api.parser()
     create_user_request.add_argument('email', type=str, location='json', required=True)

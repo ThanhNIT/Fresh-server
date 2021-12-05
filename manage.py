@@ -8,7 +8,7 @@ from app import create_app
 
 config_name = os.getenv('FLASK_CONFIG', 'development')
 
-app = create_app(config_name)
+app= create_app(config_name)
 #manager = Manager(app)
 #manager.add_command('db', MigrateCommand)
 CORS(app, resources={r"/*": {"origins": "*"}})

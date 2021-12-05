@@ -14,8 +14,8 @@ class Config(object):
     MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     # MAIL_PORT = 465
-    MAIL_USERNAME = '@gmail.com'
-    MAIL_PASSWORD = ''
+    MAIL_USERNAME = 'thanhnguyen.it.work@gmail.com'
+    MAIL_PASSWORD = 'Muoiad,23'
     MAIL_SUPPRESS_SEND = False
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
@@ -34,6 +34,7 @@ class DevelopmentConfig(Config):
     SQLALCHEMY_DATABASE_URI = "mysql://root:muoi@127.0.0.1:3306/fresh_fruit"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SERVER_ADDRESS = 'http://127.0.0.1:5000'
+    MONGO_URI = "mongodb+srv://ThanhNguyen:thanhnguyen@springbootrestful.xlacd.mongodb.net/fresh?retryWrites=true&w=majority"
 
 
 class MySqlConfig(Config):
@@ -45,15 +46,14 @@ class MySqlConfig(Config):
     SQLALCHEMY_DATABASE_URI = "mysql://root:muoi@127.0.0.1:3306/fresh_fruit"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SERVER_ADDRESS = 'http://127.0.0.1:5000'
+    MONGO_URI = "mongodb+srv://ThanhNguyen:thanhnguyen@springbootrestful.xlacd.mongodb.net/fresh?retryWrites=true&w=majority"
 
 
 class ProductionConfig(Config):
     """
     Production configurations
     """
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://postgres:password@34.126.89.62:54320/fresh_fruit"
-    SERVER_ADDRESS = 'http://34.126.89.62:5000'
-    SQLALCHEMY_TRACK_MODIFICATIONS = True
+    MONGO_URI = "mongodb+srv://ThanhNguyen:thanhnguyen@springbootrestful.xlacd.mongodb.net/fresh?retryWrites=true&w=majority"
 
     DEBUG = False
 
