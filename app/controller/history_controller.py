@@ -1,7 +1,6 @@
 from flask import request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 from flask_restx import Resource
-from pymongo.message import delete
 
 from app import response_object, db
 from app.dto.history_dto import HistoryDto
