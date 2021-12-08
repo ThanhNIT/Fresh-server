@@ -53,7 +53,7 @@ bananaModel = load_model(banana_h5, custom_objects={
 bananaModel.summary()
 
 models = [appleModel, bananaModel]
-host = 'http://192.168.43.54:5000'
+host = 'http://35.223.89.11'
 
 
 @torch.no_grad()

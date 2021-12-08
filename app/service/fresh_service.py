@@ -25,8 +25,8 @@ from datetime import date
 
 
 # model = torch.hub.load(os.path.abspath("weights"), 'custom', path=os.path.abspath("best.pt"), source='local')  # local repo
-# best = "/home/thanhnguyen_it_work/best.pt"
-best = 'H:/Fresh-server/weights/best.pt'
+best = "/home/thanhnguyen_it_work/best.pt"
+# best = 'H:/Fresh-server/weights/best.pt'
 
 
 def detectFromImage(img):
