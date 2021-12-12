@@ -55,7 +55,7 @@ def detectFromImage(img):
     parsed = json.loads(result)
     accepted =0
     rejected =0
-    for e in result:
+    for e in parsed:
         if int(e['level'])>=6:
             accepted+=1
         else:
