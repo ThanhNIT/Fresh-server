@@ -53,8 +53,16 @@ def detectFromImage(img):
     url, result, time = detect.run(
         save_txt=True, save_conf=True, save_crop=True, weights=best, source=path)
     parsed = json.loads(result)
+    accepted =0
+    rejected =0
+    for e in result:
+        if e['level']>=6:
+            accepted+=1
+        else:
+            rejected+=1
+    
     history = {'url': url, 'result': parsed, 'time': time,
-               'user_id': '', 'is_deleted': False, 'date': now}
+               'user_id': '', 'is_deleted': False, 'date': now, 'accepted':accepted, 'rejected':rejected}
 
     db.histories.insert_one(history)
     return encoder.toJson(history)
