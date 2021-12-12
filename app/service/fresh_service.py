@@ -56,7 +56,7 @@ def detectFromImage(img):
     accepted =0
     rejected =0
     for e in result:
-        if e['level']>=6:
+        if int(e['level'])>=6:
             accepted+=1
         else:
             rejected+=1
