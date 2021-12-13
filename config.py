@@ -12,7 +12,7 @@ class Config(object):
     DEFAULT_PAGE_SIZE = 15
     DEFAULT_PAGE = 1
     MAIL_SERVER = 'smtp.gmail.com'
-    MAIL_PORT = 587
+    MAIL_PORT = 465
     # MAIL_PORT = 465
     MAIL_USERNAME = 'thanhnguyen.it.work@gmail.com'
     MAIL_PASSWORD = 'Muoiad,23'
