@@ -100,16 +100,16 @@ def reset_password(args):
     if not user:
         return response_object(status=False, message=message.EMAIL_NOT_EXISTS), 401
     email = args['email'].lower()
-    try:
-        password = ''.join(random.choice(string.ascii_letters) for i in range(6))
-        if not mail_service.send_mail_reset_password(email=email,password=password):
-            return response_object(status=False, message=message.CREATE_FAILED), 500
-        # db.codes.insert_one(active_code)
-        db.users.update_one({'email':email }, {"$set": {'password': bcrypt.generate_password_hash(password).decode('utf-8')}})
+    # try:
+    password = ''.join(random.choice(string.ascii_letters) for i in range(6))
+    if not mail_service.send_mail_reset_password(email=email,password=password):
+        return response_object(status=False, message=message.CREATE_FAILED), 500
+    # db.codes.insert_one(active_code)
+    db.users.update_one({'email':email }, {"$set": {'password': bcrypt.generate_password_hash(password).decode('utf-8')}})
 
-    except Exception as e:
-        print(e)
-        return response_object(status=False, data=str(e)), 500
+    # except Exception as e:
+    #     print(e)
+    #     return response_object(status=False, data=str(e)), 500
 
     return response_object(), 200
 
