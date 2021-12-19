@@ -332,6 +332,10 @@ def run(weights='yolov5s.pt',  # model.pt path(s)
         level = round(
             float(models[predicted_class].predict(img_crop)[0][0]), 1)
         levels.append(level)
+        if(level<6):
+            color = (0, 0, 255)
+        else:
+            color = (0, 204, 0)
         # write results
         start_point = (int(data_frame["x_min"][i]),
                        int(data_frame["y_min"][i]))
