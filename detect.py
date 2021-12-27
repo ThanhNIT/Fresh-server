@@ -42,17 +42,21 @@ def mapping_to_target_range(x, target_min=0, target_max=10):
 
 filename = "/home/thanhnguyen_it_work/apple_vgg16.h5"
 banana_h5 = "/home/thanhnguyen_it_work/banana_vgg16.h5"
+orange_h5 = "/home/thanhnguyen_it_work/orange_vgg16.h5"
 
 appleModel = ''
 bananaModel = ''
+orangeModel = ''
 
 appleModel = load_model(filename, custom_objects={
                         'mapping_to_target_range': mapping_to_target_range})
 bananaModel = load_model(banana_h5, custom_objects={
                          'mapping_to_target_range': mapping_to_target_range})
-bananaModel.summary()
+orangeModel = load_model(orange_h5, custom_objects={
+                         'mapping_to_target_range': mapping_to_target_range})
+orangeModel.summary()
 
-models = [appleModel, bananaModel]
+models = [appleModel, bananaModel, orangeModel]
 host = 'http://35.223.89.11'
 
 

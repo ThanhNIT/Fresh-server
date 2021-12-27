@@ -26,20 +26,11 @@ from datetime import date
 
 # model = torch.hub.load(os.path.abspath("weights"), 'custom', path=os.path.abspath("best.pt"), source='local')  # local repo
 best = "/home/thanhnguyen_it_work/best.pt"
+best_all = "/home/thanhnguyen_it_work/all_best.pt"
 # best = 'H:/Fresh-server/weights/best.pt'
 
 
 def detectFromImage(img):
-    # boxes = model(img).pandas().xyxy[0]
-    # for i in boxes.index:
-    #     start_point = (int(boxes['xmin'][i]), int(boxes['ymin'][i]))
-    #     end_point = (int(boxes['xmax'][i]), int(boxes['ymax'][i]))
-    #     img = cv2.rectangle(img, start_point, end_point, color, thickness)
-    #     point = (int((boxes['xmin'][i]+boxes['xmax'][i])/2)-30,int((boxes['ymin'][i]+boxes['ymax'][i])/2))
-    #     img = cv2.putText(img,"apple - 5", point, cv2.FONT_HERSHEY_SIMPLEX, 0.4, (255, 0, 0), 2)
-
-    # Displaying the image
-    # cv2_imshow(image)
 
     UPLOAD_FOLDER = 'app/static'
     now = datetime.datetime.now()
@@ -51,7 +42,7 @@ def detectFromImage(img):
 
     # return download_file(filename)
     url, result, time = detect.run(
-        save_txt=True, save_conf=True, save_crop=True, weights=best, source=path)
+        save_txt=True, save_conf=True, save_crop=True, weights=best_all, source=path)
     parsed = json.loads(result)
     accepted =0
     rejected =0
