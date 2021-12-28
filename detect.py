@@ -68,7 +68,7 @@ bananaModel = load_model(
 orangeModel = load_model(
     orange_h5, custom_objects={"mapping_to_target_range": mapping_to_target_range}
 )
-orangeModel.summary()
+bananaModel.summary()
 
 models = [appleModel, bananaModel, orangeModel]
 host = "http://35.223.89.11"
