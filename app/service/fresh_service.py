@@ -42,7 +42,7 @@ def detectFromImage(img):
 
     # return download_file(filename)
     url, result, time = detect.run(
-        save_txt=True, save_conf=True, save_crop=True, weights=best_all, source=path)
+        save_txt=True, save_conf=True, save_crop=True, weights=best, source=path)
     parsed = json.loads(result)
     accepted =0
     rejected =0
