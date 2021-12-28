@@ -50,6 +50,7 @@ def mapping_to_target_range(x, target_min=0, target_max=10):
 
 # filename = "H:/Fresh-server/weights/apple_vgg16.h5"
 # banana_h5 = "H:/Fresh-server/weights/banana_vgg16.h5"
+# orange_h5 = "H:/Fresh-server/weights/orange_vgg16.h5"
 
 filename = "/home/thanhnguyen_it_work/apple_vgg16.h5"
 banana_h5 = "/home/thanhnguyen_it_work/banana_vgg16.h5"
@@ -68,7 +69,7 @@ bananaModel = load_model(
 orangeModel = load_model(
     orange_h5, custom_objects={"mapping_to_target_range": mapping_to_target_range}
 )
-bananaModel.summary()
+orangeModel.summary()
 
 models = [appleModel, bananaModel, orangeModel]
 host = "http://35.223.89.11"
@@ -110,7 +111,6 @@ def run(
     (save_dir / "labels" if save_txt else save_dir).mkdir(
         parents=True, exist_ok=True
     )  # make dir
-
     # Initialize
     set_logging()
     device = select_device(device)
@@ -369,6 +369,7 @@ def run(
     #     s = f"\n{len(list(save_dir.glob('labels/*.txt')))} labels saved to {save_dir / 'labels'}" if save_txt else ''
     #     print(f"Results saved to {colorstr('bold', save_dir)}{s}")
     img = cv2.imread(source)
+
     className = ["apple", "banana", "orange"]
     color = (0, 0, 255)
     thickness = 2
@@ -384,7 +385,11 @@ def run(
             data_frame["y_min"][i] : data_frame["y_min"][i] + height,
             data_frame["x_min"][i] : data_frame["x_min"][i] + width,
         ]
-        img_crop = load_image(img_crop)
+        if predicted_class == 2:
+            cv2.imwrite("cam.jpg", img_crop)
+            img_crop = load_image2("cam.jpg")
+        else:
+            img_crop = load_image(img_crop)
         # predict level
         level = round(float(models[predicted_class].predict(img_crop)[0][0]), 1)
         levels.append(level)
@@ -443,8 +448,18 @@ def run(
     )
 
 
-def load_image(np_image):
-    # np_image = Image.open(filename)
+from matplotlib import cm
+
+
+def load_image(np_array):
+    np_image = np.array(np_array).astype("float32") / 255
+    np_image = transform.resize(np_image, (120, 120, 3))
+    np_image = np.expand_dims(np_image, axis=0)
+    return np_image
+
+
+def load_image2(filename):
+    np_image = Image.open(filename)
     np_image = np.array(np_image).astype("float32") / 255
     np_image = transform.resize(np_image, (120, 120, 3))
     np_image = np.expand_dims(np_image, axis=0)
