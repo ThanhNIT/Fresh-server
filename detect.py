@@ -72,7 +72,7 @@ orangeModel = load_model(
 orangeModel.summary()
 
 models = [appleModel, bananaModel, orangeModel]
-host = "http://35.223.89.11"
+host = "http://35.184.213.117"
 
 
 @torch.no_grad()
