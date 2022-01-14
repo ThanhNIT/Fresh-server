@@ -6,6 +6,7 @@ Usage:
     $ python path/to/detect.py --source path/to/img.jpg --weights yolov5s.pt --img 640
 """
 
+from matplotlib import cm
 from skimage import transform
 from PIL import Image
 from tensorflow.keras.models import load_model
@@ -61,18 +62,21 @@ bananaModel = ""
 orangeModel = ""
 
 appleModel = load_model(
-    filename, custom_objects={"mapping_to_target_range": mapping_to_target_range}
+    filename, custom_objects={
+        "mapping_to_target_range": mapping_to_target_range}
 )
 bananaModel = load_model(
-    banana_h5, custom_objects={"mapping_to_target_range": mapping_to_target_range}
+    banana_h5, custom_objects={
+        "mapping_to_target_range": mapping_to_target_range}
 )
 orangeModel = load_model(
-    orange_h5, custom_objects={"mapping_to_target_range": mapping_to_target_range}
+    orange_h5, custom_objects={
+        "mapping_to_target_range": mapping_to_target_range}
 )
 orangeModel.summary()
 
 models = [appleModel, bananaModel, orangeModel]
-host = "http://35.184.213.117"
+host = "http://34.133.76.56"
 
 
 @torch.no_grad()
@@ -107,7 +111,8 @@ def run(
     #     ('rtsp://', 'rtmp://', 'http://', 'https://'))
 
     # Directories
-    save_dir = increment_path(Path(project) / name, exist_ok=exist_ok)  # increment run
+    save_dir = increment_path(Path(project) / name,
+                              exist_ok=exist_ok)  # increment run
     (save_dir / "labels" if save_txt else save_dir).mkdir(
         parents=True, exist_ok=True
     )  # make dir
@@ -164,7 +169,8 @@ def run(
         elif saved_model:
             model = tf.keras.models.load_model(w)
         elif tflite:
-            interpreter = tf.lite.Interpreter(model_path=w)  # load TFLite model
+            interpreter = tf.lite.Interpreter(
+                model_path=w)  # load TFLite model
             interpreter.allocate_tensors()  # allocate
             input_details = interpreter.get_input_details()  # inputs
             output_details = interpreter.get_output_details()  # outputs
@@ -211,7 +217,8 @@ def run(
         elif onnx:
             pred = torch.tensor(
                 session.run(
-                    [session.get_outputs()[0].name], {session.get_inputs()[0].name: img}
+                    [session.get_outputs()[0].name], {
+                        session.get_inputs()[0].name: img}
                 )
             )
         else:  # tensorflow model (tflite, pb, saved_model)
@@ -229,7 +236,8 @@ def run(
                 pred = interpreter.get_tensor(output_details[0]["index"])
                 if int8:
                     scale, zero_point = output_details[0]["quantization"]
-                    pred = (pred.astype(np.float32) - zero_point) * scale  # re-scale
+                    pred = (pred.astype(np.float32) -
+                            zero_point) * scale  # re-scale
             pred[..., 0] *= imgsz[1]  # x
             pred[..., 1] *= imgsz[0]  # y
             pred[..., 2] *= imgsz[1]  # w
@@ -263,10 +271,12 @@ def run(
             # normalization gain whwh
             gn = torch.tensor(im0.shape)[[1, 0, 1, 0]]
             imc = im0.copy() if save_crop else im0  # for save_crop
-            annotator = Annotator(im0, line_width=line_thickness, pil=not ascii)
+            annotator = Annotator(
+                im0, line_width=line_thickness, pil=not ascii)
             if len(det):
                 # Rescale boxes from img_size to im0 size
-                det[:, :4] = scale_coords(img.shape[2:], det[:, :4], im0.shape).round()
+                det[:, :4] = scale_coords(
+                    img.shape[2:], det[:, :4], im0.shape).round()
 
                 # Print results
                 for c in det[:, -1].unique():
@@ -382,8 +392,8 @@ def run(
         height = data_frame["y_max"][i] - data_frame["y_min"][i]
         width = data_frame["x_max"][i] - data_frame["x_min"][i]
         img_crop = img[
-            data_frame["y_min"][i] : data_frame["y_min"][i] + height,
-            data_frame["x_min"][i] : data_frame["x_min"][i] + width,
+            data_frame["y_min"][i]: data_frame["y_min"][i] + height,
+            data_frame["x_min"][i]: data_frame["x_min"][i] + width,
         ]
         if predicted_class == 2:
             cv2.imwrite("cam.jpg", img_crop)
@@ -391,14 +401,16 @@ def run(
         else:
             img_crop = load_image(img_crop)
         # predict level
-        level = round(float(models[predicted_class].predict(img_crop)[0][0]), 1)
+        level = round(
+            float(models[predicted_class].predict(img_crop)[0][0]), 1)
         levels.append(level)
         if level < 6:
             color = (0, 0, 255)
         else:
             color = (0, 204, 0)
         # write results
-        start_point = (int(data_frame["x_min"][i]), int(data_frame["y_min"][i]))
+        start_point = (int(data_frame["x_min"][i]),
+                       int(data_frame["y_min"][i]))
         end_point = (int(data_frame["x_max"][i]), int(data_frame["y_max"][i]))
         img = cv2.rectangle(img, start_point, end_point, color, thickness)
         minus = 7
@@ -448,9 +460,6 @@ def run(
     )
 
 
-from matplotlib import cm
-
-
 def load_image(np_array):
     np_image = np.array(np_array).astype("float32") / 255
     np_image = transform.resize(np_image, (120, 120, 3))
@@ -477,8 +486,10 @@ def convertToCoordinate(
 
     x_min_rect = ((2 * x_rect_mid * img_width) - (width_rect * img_width)) / 2
     x_max_rect = ((2 * x_rect_mid * img_width) + (width_rect * img_width)) / 2
-    y_min_rect = ((2 * y_rect_mid * img_height) - (height_rect * img_height)) / 2
-    y_max_rect = ((2 * y_rect_mid * img_height) + (height_rect * img_height)) / 2
+    y_min_rect = ((2 * y_rect_mid * img_height) -
+                  (height_rect * img_height)) / 2
+    y_max_rect = ((2 * y_rect_mid * img_height) +
+                  (height_rect * img_height)) / 2
 
     return int(x_min_rect), int(y_min_rect), int(x_max_rect), int(y_max_rect)
 
@@ -516,7 +527,8 @@ def parse_opt():
         "--device", default="", help="cuda device, i.e. 0 or 0,1,2,3 or cpu"
     )
     parser.add_argument("--view-img", action="store_true", help="show results")
-    parser.add_argument("--save-txt", action="store_true", help="save results to *.txt")
+    parser.add_argument("--save-txt", action="store_true",
+                        help="save results to *.txt")
     parser.add_argument(
         "--save-conf", action="store_true", help="save confidences in --save-txt labels"
     )
@@ -535,13 +547,17 @@ def parse_opt():
     parser.add_argument(
         "--agnostic-nms", action="store_true", help="class-agnostic NMS"
     )
-    parser.add_argument("--augment", action="store_true", help="augmented inference")
-    parser.add_argument("--visualize", action="store_true", help="visualize features")
-    parser.add_argument("--update", action="store_true", help="update all models")
+    parser.add_argument("--augment", action="store_true",
+                        help="augmented inference")
+    parser.add_argument("--visualize", action="store_true",
+                        help="visualize features")
+    parser.add_argument("--update", action="store_true",
+                        help="update all models")
     parser.add_argument(
         "--project", default="runs/detect", help="save results to project/name"
     )
-    parser.add_argument("--name", default="exp", help="save results to project/name")
+    parser.add_argument("--name", default="exp",
+                        help="save results to project/name")
     parser.add_argument(
         "--exist-ok",
         action="store_true",
@@ -565,7 +581,8 @@ def parse_opt():
 
 
 def main(opt):
-    print(colorstr("detect: ") + ", ".join(f"{k}={v}" for k, v in vars(opt).items()))
+    print(colorstr("detect: ") +
+          ", ".join(f"{k}={v}" for k, v in vars(opt).items()))
     check_requirements(exclude=("tensorboard", "thop"))
     run(**vars(opt))
 
